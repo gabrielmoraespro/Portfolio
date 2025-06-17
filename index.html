@@ -12,6 +12,9 @@
             --primary-dark: #4f46e5;
             --secondary: #14b8a6;
             --accent: #f59e0b;
+            --flutter-blue: #02569B;
+            --flutter-sky: #027DFD;
+            --flutter-navy: #13B9FD;
             --bg-primary: #0f0f23;
             --bg-secondary: #1a1a3e;
             --bg-tertiary: #252547;
@@ -22,6 +25,8 @@
             --glass-border: rgba(255, 255, 255, 0.1);
             --shadow-primary: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.3);
+            --flutter-shadow: 0 8px 32px rgba(2, 86, 155, 0.3);
+            --material-elevation: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1);
         }
 
         * {
@@ -42,7 +47,146 @@
             line-height: 1.6;
         }
 
-        /* Animated Background */
+        /* Flutter-inspired Material Design animations */
+        .material-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .material-ripple::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .material-ripple:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Flutter-style FAB (Floating Action Button) */
+        .flutter-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--flutter-shadow);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            z-index: 1000;
+            color: white;
+            font-size: 24px;
+        }
+
+        .flutter-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(2, 86, 155, 0.4);
+        }
+
+        .flutter-fab.extended {
+            width: auto;
+            padding: 0 20px;
+            border-radius: 28px;
+        }
+
+        .flutter-fab .fab-text {
+            margin-left: 10px;
+            font-weight: 600;
+            opacity: 0;
+            width: 0;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .flutter-fab.extended .fab-text {
+            opacity: 1;
+            width: auto;
+        }
+
+        /* Flutter-style Cards with Material elevation */
+        .flutter-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: var(--material-elevation);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .flutter-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        /* Flutter-inspired Sliver AppBar effect */
+        .flutter-appbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            background: transparent;
+            backdrop-filter: blur(0px);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            z-index: 1000;
+            border-bottom: 1px solid transparent;
+        }
+
+        .flutter-appbar.collapsed {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--material-elevation);
+        }
+
+        /* Flutter Widget-style containers */
+        .flutter-container {
+            margin: 16px;
+            padding: 24px;
+            border-radius: 16px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .flutter-hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .flutter-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky), var(--flutter-navy));
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+
+        .flutter-hero:hover::before {
+            opacity: 0.2;
+        }
+
+        /* Animated Background with Flutter colors */
         body::before {
             content: '';
             position: fixed;
@@ -51,17 +195,18 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(20, 184, 166, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
-            animation: backgroundShift 20s ease-in-out infinite;
+                radial-gradient(circle at 25% 25%, rgba(2, 86, 155, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(2, 125, 253, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(19, 185, 253, 0.05) 0%, transparent 50%);
+            animation: flutterBackgroundShift 25s ease-in-out infinite;
             z-index: -1;
         }
 
-        @keyframes backgroundShift {
+        @keyframes flutterBackgroundShift {
             0%, 100% { transform: rotate(0deg) scale(1); }
-            33% { transform: rotate(1deg) scale(1.02); }
-            66% { transform: rotate(-1deg) scale(0.98); }
+            25% { transform: rotate(1deg) scale(1.02); }
+            50% { transform: rotate(-0.5deg) scale(0.98); }
+            75% { transform: rotate(0.5deg) scale(1.01); }
         }
 
         /* Glass morphism utility */
@@ -72,20 +217,21 @@
             box-shadow: var(--shadow-primary);
         }
 
-        /* Header */
+        /* Header with Flutter-style navigation */
         header {
             position: fixed;
             top: 0;
             width: 100%;
             padding: 1rem 2rem;
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         header.scrolled {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--material-elevation);
         }
 
         header nav {
@@ -99,7 +245,7 @@
         nav ul {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1rem;
             list-style: none;
         }
 
@@ -107,28 +253,90 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             text-decoration: none;
             color: var(--text-primary);
             font-size: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            z-index: -1;
+        }
+
+        nav ul li a:hover::before {
+            width: 100%;
+            height: 100%;
         }
 
         nav ul li a:hover {
             transform: translateY(-5px) scale(1.1);
-            background: var(--primary);
-            box-shadow: var(--shadow-glow);
+            box-shadow: var(--flutter-shadow);
+            color: white;
         }
 
-        nav ul li a img {
-            width: 24px;
-            height: 24px;
-            filter: brightness(0) invert(1);
+        /* Flutter-style button with ripple effect */
+        .flutter-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            color: white;
+            text-decoration: none;
+            border-radius: 28px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: var(--flutter-shadow);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+
+        .flutter-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .flutter-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .flutter-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(2, 86, 155, 0.4);
+        }
+
+        .flutter-button:active {
+            transform: translateY(-1px) scale(1.02);
         }
 
         /* CV Download Button */
@@ -141,14 +349,14 @@
             align-items: center;
             gap: 0.8rem;
             padding: 0.8rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: var(--flutter-shadow);
             position: relative;
             overflow: hidden;
         }
@@ -156,27 +364,29 @@
         .cv-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .cv-btn:hover::before {
-            left: 100%;
+            width: 300px;
+            height: 300px;
         }
 
         .cv-btn:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            box-shadow: 0 12px 40px rgba(2, 86, 155, 0.4);
         }
 
         .cv-btn i {
             font-size: 1.1rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .cv-btn:hover i {
@@ -188,7 +398,7 @@
             z-index: 1;
         }
 
-        /* Main Container */
+        /* Main Container with Flutter-style layout */
         .container-main {
             min-height: 100vh;
             display: flex;
@@ -212,7 +422,7 @@
         }
 
         .introducao {
-            animation: slideInLeft 1s ease-out;
+            animation: slideInLeft 1s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .parte1 h1 {
@@ -221,24 +431,24 @@
             color: var(--text-secondary);
             margin-bottom: 0.5rem;
             opacity: 0;
-            animation: fadeInUp 1s ease-out 0.2s forwards;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0.0, 0.2, 1) 0.2s forwards;
         }
 
         .parte2 h2 {
             font-size: clamp(3rem, 6vw, 5rem);
             font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--flutter-blue) 0%, var(--flutter-sky) 50%, var(--flutter-navy) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 1rem;
             opacity: 0;
-            animation: fadeInUp 1s ease-out 0.4s forwards;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0.0, 0.2, 1) 0.4s forwards;
         }
 
         .card-foto {
             position: relative;
-            animation: slideInRight 1s ease-out 0.6s both;
+            animation: slideInRight 1s cubic-bezier(0.4, 0.0, 0.2, 1) 0.6s both;
         }
 
         .card-foto::before {
@@ -248,16 +458,22 @@
             left: -20px;
             right: -20px;
             bottom: -20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky), var(--flutter-navy));
             border-radius: 30px;
             opacity: 0.3;
             filter: blur(20px);
-            animation: glow 3s ease-in-out infinite alternate;
+            animation: flutterGlow 4s ease-in-out infinite alternate;
         }
 
-        @keyframes glow {
-            from { opacity: 0.3; transform: scale(1); }
-            to { opacity: 0.6; transform: scale(1.05); }
+        @keyframes flutterGlow {
+            from { 
+                opacity: 0.3; 
+                transform: scale(1) rotate(0deg); 
+            }
+            to { 
+                opacity: 0.6; 
+                transform: scale(1.05) rotate(1deg); 
+            }
         }
 
         .card-foto img {
@@ -268,11 +484,11 @@
             border: 2px solid var(--glass-border);
             position: relative;
             z-index: 1;
-            transition: transform 0.3s ease;
+            transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .card-foto:hover img {
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(2deg);
         }
 
         #texto-home {
@@ -285,9 +501,11 @@
             line-height: 1.8;
             color: var(--text-secondary);
             opacity: 0;
-            animation: fadeInUp 1s ease-out 0.8s forwards;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0.0, 0.2, 1) 0.8s forwards;
+            box-shadow: var(--material-elevation);
         }
 
+        /* Flutter-style Navigation Drawer */
         .navegacao {
             position: fixed;
             right: 2rem;
@@ -299,30 +517,34 @@
             border-radius: 20px;
             padding: 2rem;
             opacity: 0;
-            animation: slideInRight 1s ease-out 1s forwards;
+            animation: slideInRight 1s cubic-bezier(0.4, 0.0, 0.2, 1) 1s forwards;
             min-width: 200px;
             width: auto;
+            box-shadow: var(--material-elevation);
         }
 
         .navegacao h2 {
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .navegacao nav ul {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
         .navegacao nav ul li a {
             color: var(--text-secondary);
             text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            padding: 12px 20px;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             display: block;
             position: relative;
             overflow: hidden;
@@ -338,8 +560,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(2, 86, 155, 0.2), transparent);
+            transition: left 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .navegacao nav ul li a:hover::before {
@@ -348,11 +570,38 @@
 
         .navegacao nav ul li a:hover {
             color: var(--text-primary);
-            background: var(--glass-bg);
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            background: rgba(2, 86, 155, 0.1);
             transform: translateX(10px);
+            box-shadow: var(--material-elevation);
         }
 
-        /* About Section */
+        /* Flutter-style Section Titles */
+        .flutter-section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, var(--flutter-blue) 0%, var(--flutter-sky) 50%, var(--flutter-navy) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .flutter-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            border-radius: 2px;
+        }
+
+        /* About Section with Flutter cards */
         .container-sobre-mim {
             padding: 6rem 2rem;
             max-width: 1200px;
@@ -365,7 +614,7 @@
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 4rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--flutter-blue) 0%, var(--flutter-sky) 50%, var(--flutter-navy) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -390,44 +639,76 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 2rem;
-            transition: transform 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: var(--material-elevation);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skills::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .skills:hover::before {
+            opacity: 0.05;
         }
 
         .skills:hover {
             transform: translateY(-10px);
+            box-shadow: 0 16px 32px rgba(2, 86, 155, 0.2);
         }
 
         .skills h4 {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .skills h4::before {
             content: '▶';
-            color: var(--secondary);
+            color: var(--flutter-navy);
         }
 
         .skills ul {
             list-style: none;
+            position: relative;
+            z-index: 1;
         }
 
         .skills ul li {
             padding: 0.5rem 0;
             color: var(--text-secondary);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             position: relative;
             padding-left: 1.5rem;
         }
 
         .skills ul li::before {
             content: '•';
-            color: var(--accent);
+            color: var(--flutter-sky);
             position: absolute;
             left: 0;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .skills ul li:hover::before {
+            transform: scale(1.5);
         }
 
         .skills ul li:hover {
@@ -441,12 +722,22 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 2rem;
+            box-shadow: var(--material-elevation);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .objetivos:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 32px rgba(2, 86, 155, 0.15);
         }
 
         .objetivos h5 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .objetivos p {
@@ -454,7 +745,7 @@
             line-height: 1.8;
         }
 
-        /* Education Section */
+        /* Flutter-style Education Cards */
         .ensino {
             text-align: center;
         }
@@ -462,7 +753,10 @@
         .ensino h1 {
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .container-escolas {
@@ -477,9 +771,10 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 2rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: var(--material-elevation);
         }
 
         .escola-card::before {
@@ -489,8 +784,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-            transition: left 0.7s ease;
+            background: linear-gradient(90deg, transparent, rgba(2, 86, 155, 0.1), transparent);
+            transition: left 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .escola-card:hover::before {
@@ -499,11 +794,15 @@
 
         .escola-card:hover {
             transform: translateY(-10px) scale(1.02);
-            border-color: var(--primary);
+            border-color: var(--flutter-blue);
+            box-shadow: 0 16px 32px rgba(2, 86, 155, 0.2);
         }
 
         .escola-card h2 {
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 1rem;
         }
 
@@ -513,9 +812,14 @@
             object-fit: contain;
             margin: 1rem 0;
             border-radius: 10px;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
-        /* Projects Section */
+        .escola-card:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Flutter-style Projects Section */
         .container-projetos {
             padding: 6rem 2rem;
             max-width: 1200px;
@@ -527,7 +831,7 @@
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 4rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--flutter-blue) 0%, var(--flutter-sky) 50%, var(--flutter-navy) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -552,10 +856,11 @@
             padding: 2rem;
             text-decoration: none;
             color: var(--text-primary);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             position: relative;
             overflow: hidden;
             min-height: 200px;
+            box-shadow: var(--material-elevation);
         }
 
         .box-projeto::before {
@@ -565,9 +870,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky), var(--flutter-navy));
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .box-projeto:hover::before {
@@ -576,13 +881,16 @@
 
         .box-projeto:hover {
             transform: translateY(-10px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: var(--shadow-glow);
+            border-color: var(--flutter-blue);
+            box-shadow: 0 16px 32px rgba(2, 86, 155, 0.25);
         }
 
         .box-projeto h2 {
             margin-bottom: 1rem;
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             position: relative;
             z-index: 1;
         }
@@ -606,32 +914,54 @@
         .ling-icon img {
             width: 30px;
             height: 30px;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .ling-icon:hover img {
             transform: scale(1.2) rotate(5deg);
         }
 
+        /* Flutter-style buttons */
         .veja-mais, .veja-menos {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
+            padding: 16px 32px;
+            border-radius: 28px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             margin: 0 0.5rem;
+            box-shadow: var(--flutter-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .veja-mais::before, .veja-menos::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .veja-mais:hover::before, .veja-menos:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .veja-mais:hover, .veja-menos:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
+            box-shadow: 0 12px 40px rgba(2, 86, 155, 0.4);
         }
 
         .veja-menos {
@@ -642,7 +972,7 @@
             display: none;
         }
 
-        /* Contact Section */
+        /* Flutter-style Contact Section */
         .container-contato {
             padding: 6rem 2rem;
             max-width: 1200px;
@@ -654,7 +984,7 @@
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 4rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--flutter-blue) 0%, var(--flutter-sky) 50%, var(--flutter-navy) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -673,6 +1003,13 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 3rem;
+            box-shadow: var(--material-elevation);
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .form-contato:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 32px rgba(2, 86, 155, 0.15);
         }
 
         .form-contato p {
@@ -695,14 +1032,15 @@
             padding: 1rem 1.5rem;
             color: var(--text-primary);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             font-family: inherit;
         }
 
         .form input:focus, .form textarea:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+            border-color: var(--flutter-blue);
+            box-shadow: 0 0 20px rgba(2, 86, 155, 0.3);
+            transform: translateY(-2px);
         }
 
         .form textarea {
@@ -711,20 +1049,41 @@
         }
 
         .button-enviar {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 15px;
+            padding: 16px 32px;
+            border-radius: 28px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: var(--flutter-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button-enviar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .button-enviar:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .button-enviar:hover {
             transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
+            box-shadow: 0 12px 40px rgba(2, 86, 155, 0.4);
         }
 
         .redes-sociais-contato {
@@ -734,6 +1093,7 @@
             border-radius: 20px;
             padding: 2rem;
             height: fit-content;
+            box-shadow: var(--material-elevation);
         }
 
         .redes-sociais-contato ul {
@@ -752,23 +1112,42 @@
             border-radius: 15px;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .redes-sociais-contato ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .redes-sociais-contato ul li a:hover::before {
+            opacity: 1;
         }
 
         .redes-sociais-contato ul li a:hover {
             transform: translateY(-5px) scale(1.1);
-            background: var(--primary);
-            box-shadow: var(--shadow-glow);
+            box-shadow: var(--flutter-shadow);
         }
 
         .redes-sociais-contato ul li a img {
             width: 30px;
             height: 30px;
             filter: brightness(0) invert(1);
+            position: relative;
+            z-index: 1;
         }
 
-        /* Footer */
+        /* Flutter-style Footer */
         .container-footer {
             background: var(--bg-secondary);
             border-top: 1px solid var(--glass-border);
@@ -784,7 +1163,10 @@
         }
 
         .sumario h6 {
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--flutter-blue), var(--flutter-sky));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 1rem;
             font-size: 1.1rem;
         }
@@ -798,14 +1180,17 @@
         .sumario ul li a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
         }
 
         .sumario ul li a:hover {
-            color: var(--primary);
+            color: var(--flutter-blue);
+            background: rgba(2, 86, 155, 0.1);
         }
 
-        /* Animations */
+        /* Flutter-style Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -839,7 +1224,28 @@
             }
         }
 
-        /* Responsive Design */
+        /* Flutter Widget Reveal Animation */
+        .flutter-reveal {
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .flutter-reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Flutter Hero Animation */
+        .flutter-hero-animation {
+            transition: all 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .flutter-hero-animation:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design with Flutter breakpoints */
         @media (max-width: 1024px) {
             .navegacao {
                 position: static;
@@ -880,7 +1286,6 @@
                 margin-left: 0;
             }
 
-            /* Ícones maiores para tablet */
             nav ul li a {
                 width: 55px;
                 height: 55px;
@@ -917,7 +1322,6 @@
                 justify-content: center;
             }
 
-            /* Ícones ainda maiores para mobile */
             nav ul li a {
                 width: 60px;
                 height: 60px;
@@ -934,14 +1338,19 @@
                 font-size: 1.3rem;
             }
 
-            /* Manter texto do botão em mobile */
             .cv-btn span {
                 display: inline;
+            }
+
+            .flutter-fab {
+                bottom: 20px;
+                right: 20px;
+                width: 48px;
+                height: 48px;
             }
         }
 
         @media (max-width: 480px) {
-            /* Para telas muito pequenas, ajustar ainda mais */
             header {
                 padding: 1rem 0.5rem;
             }
@@ -964,32 +1373,15 @@
             .cv-btn i {
                 font-size: 1.2rem;
             }
+
+            .flutter-fab {
+                width: 44px;
+                height: 44px;
+            }
         }
 
-        /* Smooth reveal on scroll */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Floating elements */
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Particle effect */
-        .particles {
+        /* Flutter-inspired particle system */
+        .flutter-particles {
             position: fixed;
             top: 0;
             left: 0;
@@ -999,28 +1391,93 @@
             z-index: -1;
         }
 
-        .particle {
+        .flutter-particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--primary);
+            width: 3px;
+            height: 3px;
+            background: var(--flutter-blue);
             border-radius: 50%;
-            animation: particleFloat 10s linear infinite;
+            animation: flutterParticleFloat 12s linear infinite;
         }
 
-        @keyframes particleFloat {
+        .flutter-particle:nth-child(odd) {
+            background: var(--flutter-sky);
+        }
+
+        .flutter-particle:nth-child(3n) {
+            background: var(--flutter-navy);
+        }
+
+        @keyframes flutterParticleFloat {
             0% {
-                transform: translateY(100vh) rotate(0deg);
+                transform: translateY(100vh) rotate(0deg) scale(0);
                 opacity: 0;
             }
             10% {
                 opacity: 1;
+                transform: translateY(90vh) rotate(45deg) scale(1);
             }
             90% {
                 opacity: 1;
+                transform: translateY(10vh) rotate(315deg) scale(1);
             }
             100% {
-                transform: translateY(-100px) rotate(360deg);
+                transform: translateY(-10vh) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Flutter-style loading animation */
+        .flutter-loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(2, 86, 155, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--flutter-blue);
+            animation: flutter-spin 1s ease-in-out infinite;
+        }
+
+        @keyframes flutter-spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Flutter-style snackbar */
+        .flutter-snackbar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: var(--material-elevation);
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            z-index: 1001;
+        }
+
+        .flutter-snackbar.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Flutter Material Design Ripple Effect */
+        .material-ripple-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
                 opacity: 0;
             }
         }
@@ -1028,36 +1485,42 @@
 </head>
 
 <body>
-    <!-- Particle system -->
-    <div class="particles" id="particles"></div>
+    <!-- Flutter-style Particle system -->
+    <div class="flutter-particles" id="flutter-particles"></div>
     
-    <!-- Header -->
-    <header id="header">
+    <!-- Flutter-style FAB -->
+    <div class="flutter-fab" id="flutter-fab" title="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+        <span class="fab-text">Topo</span>
+    </div>
+    
+    <!-- Header with Flutter Material Design -->
+    <header id="header" class="flutter-appbar">
         <nav>
             <ul>
                 <li>
-                    <a href="https://github.com/gabrielmoraespro" target="_blank" title="GitHub">
+                    <a href="https://github.com/gabrielmoraespro" target="_blank" title="GitHub" class="material-ripple">
                         <i class="fab fa-github"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.instagram.com/gabrielmoraespro/" target="_blank" title="Instagram">
+                    <a href="https://www.instagram.com/gabrielmoraespro/" target="_blank" title="Instagram" class="material-ripple">
                         <i class="fab fa-instagram"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="https://www.linkedin.com/in/gabrielmoraes-me/" target="_blank" title="LinkedIn">
+                    <a href="https://www.linkedin.com/in/gabrielmoraes-me/" target="_blank" title="LinkedIn" class="material-ripple">
                         <i class="fab fa-linkedin"></i>
                     </a>
                 </li>
                 <li>
-                    <a href="https://gabrielmoraes.webflow.io/" target="_blank" title="Webflow Portfolio">
+                    <a href="https://gabrielmoraes.webflow.io/" target="_blank" title="Webflow Portfolio" class="material-ripple">
                         <i class="fas fa-globe"></i>
                     </a>
                 </li>
             </ul>
             <div class="cv-download">
-                <a href="https://drive.google.com/uc?export=download&id=1K4aKYVBbx8EN8gdMKqSUH5340XMzEumB" class="cv-btn" title="Download CV">
+                <a href="https://drive.google.com/uc?export=download&id=1K4aKYVBbx8EN8gdMKqSUH5340XMzEumB" class="flutter-button" title="Download CV">
                     <i class="fas fa-download"></i>
                     <span>Baixar CV</span>
                 </a>
@@ -1065,7 +1528,7 @@
         </nav>
     </header>
 
-    <!-- Home Section -->
+    <!-- Home Section with Flutter Hero Widget -->
     <section class="container-main" id="home">
         <div class="comeco">
             <section class="eu-e-foto">
@@ -1074,14 +1537,14 @@
                         <h1>Olá, eu me chamo</h1>
                     </div>
                     <div class="parte2">
-                        <h2>Gabriel Moraes</h2>
+                        <h2 id="flutter-name">Gabriel Moraes</h2>
                     </div>
                 </section>
-                <div class="card-foto floating">
+                <div class="card-foto flutter-hero flutter-hero-animation">
                     <img src="foto-gabriel.jpg" alt="Gabriel Moraes">
                 </div>
             </section>
-            <div id="texto-home">
+            <div id="texto-home" class="flutter-container">
                 <p>Muito prazer! Sou Gabriel, graduando em Análise/Desenvolvimento de Sistemas e Designer Gráfico. Estou à sua disposição para trabalhar no seu projeto. Sou um profissional assíduo e acessível. Vamos trabalhar juntos?</p>
             </div>
         </div>
@@ -1092,22 +1555,22 @@
             <div class="container-nav">
                 <nav>
                     <ul>
-                        <li><a href="#sobre-mim">Sobre</a></li>
-                        <li><a href="#projetos">Projetos</a></li>
-                        <li><a href="#contato">Contato</a></li>
+                        <li><a href="#sobre-mim" class="material-ripple-effect">Sobre</a></li>
+                        <li><a href="#projetos" class="material-ripple-effect">Projetos</a></li>
+                        <li><a href="#contato" class="material-ripple-effect">Contato</a></li>
                     </ul>
                 </nav>
             </div>
         </aside>
     </section>
 
-    <!-- About Section -->
-    <section class="container-sobre-mim reveal" id="sobre-mim">
-        <h3 id="titulo-sobre-mim">Sobre</h3>
+    <!-- About Section with Flutter Cards -->
+    <section class="container-sobre-mim flutter-reveal" id="sobre-mim">
+        <h3 id="titulo-sobre-mim" class="flutter-section-title">Sobre</h3>
         
         <div class="parte1-sobre-mim">
             <div class="habilidades">
-                <div class="skills reveal">
+                <div class="skills flutter-card flutter-reveal">
                     <h4><i class="fas fa-code"></i> Hard Skills</h4>
                     <ul>
                         <li>Java</li>
@@ -1116,11 +1579,12 @@
                         <li>HTML</li>
                         <li>CSS</li>
                         <li>JavaScript</li>
+                        <li>Flutter & Dart</li>
                         <li>Inglês avançado - C1 certificado</li>
                         <li>Espanhol intermediário</li>
                     </ul>
                 </div>
-                <div class="skills reveal">
+                <div class="skills flutter-card flutter-reveal">
                     <h4><i class="fas fa-users"></i> Soft Skills</h4>
                     <ul>
                         <li>Raciocínio lógico</li>
@@ -1129,44 +1593,51 @@
                         <li>Facilidade e gosto em aprender</li>
                         <li>Adaptabilidade</li>
                         <li>Comunicação</li>
+                        <li>Pensamento em Widgets</li>
+                        <li>UI/UX Design</li>
                     </ul>
                 </div>
             </div>    
-            <div class="objetivos reveal">
+            <div class="objetivos flutter-card flutter-reveal">
                 <h5><i class="fas fa-target"></i> Objetivos</h5>
-                <p>Atualmente estou cursando o segundo semestre do curso superior em Análise e Desenvolvimento de Sistemas (2/6). Sempre estou em busca de oportunidades que promovam meu crescimento pessoal e profissional. Tenho facilidade para aprender, sou comunicativo e me adapto rapidamente a diferentes ambientes. Estou constantemente aprimorando minhas habilidades técnicas e de resolução de problemas, com foco em alcançar resultados práticos e eficientes.</p>
+                <p>Atualmente estou cursando o segundo semestre do curso superior em Análise e Desenvolvimento de Sistemas (2/6). Sempre estou em busca de oportunidades que promovam meu crescimento pessoal e profissional. Tenho facilidade para aprender, sou comunicativo e me adapto rapidamente a diferentes ambientes. Estou constantemente aprimorando minhas habilidades técnicas e de resolução de problemas, com foco em alcançar resultados práticos e eficientes. Minha paixão por Flutter e desenvolvimento mobile me motiva a criar experiências únicas e intuitivas.</p>
             </div>
         </div>
         
-        <div class="ensino reveal">
+        <div class="ensino flutter-reveal">
             <h1><i class="fas fa-graduation-cap"></i> Educação</h1>
             <div class="container-escolas">
-                <div class="escola-card reveal">
+                <div class="escola-card flutter-card flutter-reveal">
                     <h2>Universidade</h2>
                     <img src="Logo-u.png" alt="Universidade">
                     <p>Análise e desenvolvimento de sistemas - Gran Faculdade (2024 - 2027)</p>
                 </div>
-                <div class="escola-card reveal">
+                <div class="escola-card flutter-card flutter-reveal">
                     <h2>Curso Técnico</h2>
-                    <img id="senac-img" src="tec-pentest.jpg" alt="Cybersecurity">
+                    <img src="senac-img" alt="Cybersecurity">
                     <p>Cybersecurity e pentest - Técnicas de Invasão (2024 - 2025)</p>
                 </div>
-                <div class="escola-card reveal">
+                <div class="escola-card flutter-card flutter-reveal">
                     <h2>Inglês</h2>
                     <img src="CNA.png" alt="CNA">
                     <p>CNA (2018 - 2022)</p>
+                </div>
+                <div class="escola-card flutter-card flutter-reveal">
+                    <h2>Flutter Development</h2>
+                    <img src="https://via.placeholder.com/80x80/02569B/ffffff?text=FL" alt="Flutter">
+                    <p>Estudos autodidatas e projetos práticos (2024 - presente)</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section class="container-projetos reveal" id="projetos">
-        <h1 class="titulo-projetos"><i class="fas fa-rocket"></i> Projetos</h1>
+    <!-- Projects Section with Flutter Material Cards -->
+    <section class="container-projetos flutter-reveal" id="projetos">
+        <h1 class="titulo-projetos flutter-section-title"><i class="fab fa-flutter"></i> Projetos</h1>
         <div class="container-boxes">
             <div class="box-u" id="grid-boxes">
-                <div class="reveal">
-                    <a href="https://github.com/gabrielmoraespro?tab=repositories" target="_blank" class="box-projeto">
+                <div class="flutter-reveal">
+                    <a href="https://github.com/gabrielmoraespro?tab=repositories" target="_blank" class="box-projeto flutter-card material-ripple-effect">
                         <h2><i class="fab fa-github"></i> Repositórios</h2>
                         <p>Aqui está localizado os meus projetos</p>
                         <ul class="linguagens">
@@ -1176,8 +1647,8 @@
                         </ul>
                     </a>
                 </div>
-                <div class="reveal">
-                    <a href="https://github.com/gabrielmoraespro/ISR-System" target="_blank" class="box-projeto">
+                <div class="flutter-reveal">
+                    <a href="https://github.com/gabrielmoraespro/ISR-System" target="_blank" class="box-projeto flutter-card material-ripple-effect">
                         <h2><i class="fas fa-shield-alt"></i> ISR System</h2>
                         <p>Aplicativo de segurança pública inovador desenvolvido para fornecer uma camada extra de proteção para os usuários em tempo real.</p>
                         <ul class="linguagens">
@@ -1190,71 +1661,93 @@
                         </ul>
                     </a>
                 </div>
-                <div class="veja-mais-div reveal" id="box-display">
-                    <a href="#" class="box-projeto">
-                        <h2><i class="fas fa-cogs"></i> Em Desenvolvimento</h2>
-                        <p>Novos projetos incríveis estão sendo desenvolvidos. Fique atento às atualizações!</p>
+                <div class="flutter-reveal">
+                    <a href="#" class="box-projeto flutter-card material-ripple-effect">
+                        <h2><i class="fab fa-flutter"></i> Flutter App</h2>
+                        <p>Aplicativo mobile multiplataforma desenvolvido com Flutter, focado em performance e experiência do usuário.</p>
                         <ul class="linguagens">
                             <li class="ling-icon">
-                                <i class="fas fa-code" style="font-size: 30px; color: var(--primary);"></i>
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter" />
+                            </li>
+                            <li class="ling-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart" />
                             </li>
                         </ul>
                     </a>
                 </div>
-                <div class="veja-mais-div reveal" id="box-display">
-                    <a href="#" class="box-projeto">
-                        <h2><i class="fas fa-lightbulb"></i> Próximos Projetos</h2>
-                        <p>Ideias inovadoras em planejamento. Grandes coisas estão por vir!</p>
+                <div class="veja-mais-div flutter-reveal" id="box-display">
+                    <a href="#" class="box-projeto flutter-card material-ripple-effect">
+                        <h2><i class="fas fa-mobile-alt"></i> React Native App</h2>
+                        <p>Aplicação híbrida com foco em performance e usabilidade cross-platform.</p>
                         <ul class="linguagens">
                             <li class="ling-icon">
-                                <i class="fas fa-rocket" style="font-size: 30px; color: var(--secondary);"></i>
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React Native" />
+                            </li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="veja-mais-div flutter-reveal" id="box-display">
+                    <a href="#" class="box-projeto flutter-card material-ripple-effect">
+                        <h2><i class="fas fa-brain"></i> AI Integration</h2>
+                        <p>Projeto integrando inteligência artificial com desenvolvimento mobile moderno.</p>
+                        <ul class="linguagens">
+                            <li class="ling-icon">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
+                            </li>
+                            <li class="ling-icon">
+                                <i class="fas fa-robot" style="font-size: 30px; color: var(--flutter-sky);"></i>
                             </li>
                         </ul>
                     </a>
                 </div>
             </div>
         </div>
-        <button class="veja-mais" id="btn-veja-mais">
+        <button class="veja-mais flutter-button" id="btn-veja-mais">
             <i class="fas fa-chevron-down"></i>
             Veja mais
         </button>
-        <button class="veja-menos" id="btn-veja-menos">
+        <button class="veja-menos flutter-button" id="btn-veja-menos">
             <i class="fas fa-chevron-up"></i>
             Veja menos
         </button>
     </section>
 
-    <!-- Contact Section -->
-    <section class="container-contato reveal" id="contato">
-        <h1 class="titulo-contato"><i class="fas fa-envelope"></i> Contato</h1>
+    <!-- Contact Section with Flutter Material Design -->
+    <section class="container-contato flutter-reveal" id="contato">
+        <h1 class="titulo-contato flutter-section-title"><i class="fas fa-envelope"></i> Contato</h1>
         <div class="container-form">
-            <div class="form-contato">
+            <div class="form-contato flutter-card">
                 <p><i class="fas fa-comments"></i> Fale comigo ou me siga nas redes sociais!</p>
                 <div class="form">
-                    <input type="text" id="nomeid" placeholder="Insira seu nome..." required="required" name="nome" />
-                    <input type="email" id="emailid" placeholder="Insira seu email..." name="email" />
-                    <textarea placeholder="Deixe sua mensagem" id="mensagem"></textarea>
-                    <button class="button-enviar" onclick="sendEmail()">
+                    <input type="text" id="nomeid" placeholder="Insira seu nome..." required="required" name="nome" class="material-ripple-effect" />
+                    <input type="email" id="emailid" placeholder="Insira seu email..." name="email" class="material-ripple-effect" />
+                    <textarea placeholder="Deixe sua mensagem" id="mensagem" class="material-ripple-effect"></textarea>
+                    <button class="button-enviar flutter-button material-ripple-effect" onclick="sendEmail()">
                         <i class="fas fa-paper-plane"></i>
-                        Enviar
+                        <span>Enviar</span>
                     </button>
                 </div>
             </div>
-            <div class="redes-sociais-contato">
+            <div class="redes-sociais-contato flutter-card">
                 <ul>
                     <li>
-                        <a href="https://github.com/gabrielmoraespro" target="_blank" title="GitHub">
+                        <a href="https://github.com/gabrielmoraespro" target="_blank" title="GitHub" class="material-ripple-effect">
                             <i class="fab fa-github"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.instagram.com/gabrielmoraespro/" target="_blank" title="Instagram">
+                        <a href="https://www.instagram.com/gabrielmoraespro/" target="_blank" title="Instagram" class="material-ripple-effect">
                             <i class="fab fa-instagram"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.linkedin.com/in/gabrielmoraes-me" target="_blank" title="LinkedIn">
+                        <a href="https://www.linkedin.com/in/gabrielmoraes-me" target="_blank" title="LinkedIn" class="material-ripple-effect">
                             <i class="fab fa-linkedin"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank" title="Flutter Portfolio" class="material-ripple-effect">
+                            <i class="fab fa-flutter"></i>
                         </a>
                     </li>
                 </ul>
@@ -1262,13 +1755,13 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer with Flutter styling -->
     <footer class="container-footer">
         <div class="feito-por">
-            <p><i class="fas fa-heart" style="color: var(--accent);"></i> Feito por Gabriel Moraes usando HTML5, CSS3 e JavaScript.</p>
+            <p><i class="fas fa-heart" style="color: var(--flutter-sky);"></i> Feito por Gabriel Moraes usando HTML5, CSS3, JavaScript e inspirado no Flutter.</p>
         </div>
         <div class="sumario">
-            <h6><i class="fas fa-list"></i> Sumário</h6>
+            <h6><i class="fab fa-flutter"></i> Sumário</h6>
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#sobre-mim">Sobre</a></li> 
@@ -1278,37 +1771,42 @@
         </div>
     </footer>
 
+    <!-- Flutter-style Snackbar -->
+    <div class="flutter-snackbar" id="flutter-snackbar">
+        <span id="snackbar-message"></span>
+    </div>
+
     <script>
-        // Particle system
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
+        // Flutter-inspired particle system
+        function createFlutterParticles() {
+            const particlesContainer = document.getElementById('flutter-particles');
+            const particleCount = 40;
 
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
-                particle.className = 'particle';
+                particle.className = 'flutter-particle';
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 8) + 's';
                 particlesContainer.appendChild(particle);
             }
         }
 
-        // Header scroll effect
-        function handleHeaderScroll() {
+        // Flutter-style AppBar scroll effect
+        function handleFlutterAppBarScroll() {
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 100) {
-                    header.classList.add('scrolled');
+                    header.classList.add('collapsed');
                 } else {
-                    header.classList.remove('scrolled');
+                    header.classList.remove('collapsed');
                 }
             });
         }
 
-        // Reveal animation on scroll
-        function revealOnScroll() {
-            const reveals = document.querySelectorAll('.reveal');
+        // Flutter Widget reveal animation on scroll
+        function flutterRevealOnScroll() {
+            const reveals = document.querySelectorAll('.flutter-reveal');
             
             function checkReveal() {
                 reveals.forEach(reveal => {
@@ -1323,69 +1821,146 @@
             }
 
             window.addEventListener('scroll', checkReveal);
-            checkReveal(); // Check on load
+            checkReveal();
         }
 
-        // Project toggle functionality
-        function setupProjectToggle() {
+        // Flutter-style FAB functionality
+        function setupFlutterFAB() {
+            const fab = document.getElementById('flutter-fab');
+            
+            fab.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Show/hide FAB based on scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    fab.style.opacity = '1';
+                    fab.style.transform = 'scale(1)';
+                } else {
+                    fab.style.opacity = '0';
+                    fab.style.transform = 'scale(0.8)';
+                }
+            });
+
+            // Extended FAB on hover
+            fab.addEventListener('mouseenter', () => {
+                fab.classList.add('extended');
+            });
+
+            fab.addEventListener('mouseleave', () => {
+                fab.classList.remove('extended');
+            });
+        }
+
+        // Material Design Ripple Effect
+        function addRippleEffect() {
+            document.querySelectorAll('.material-ripple-effect').forEach(element => {
+                element.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        }
+
+        // Flutter-style Snackbar
+        function showFlutterSnackbar(message, duration = 3000) {
+            const snackbar = document.getElementById('flutter-snackbar');
+            const messageElement = document.getElementById('snackbar-message');
+            
+            messageElement.textContent = message;
+            snackbar.classList.add('show');
+            
+            setTimeout(() => {
+                snackbar.classList.remove('show');
+            }, duration);
+        }
+
+        // Project toggle functionality with Flutter animations
+        function setupFlutterProjectToggle() {
             const btnVejaMais = document.getElementById('btn-veja-mais');
             const btnVejaMenos = document.getElementById('btn-veja-menos');
             const boxesDisplay = document.querySelectorAll('.veja-mais-div');
 
             btnVejaMais.addEventListener('click', () => {
-                boxesDisplay.forEach(box => {
+                boxesDisplay.forEach((box, index) => {
                     box.style.display = 'block';
                     setTimeout(() => {
                         box.classList.add('active');
-                    }, 100);
+                    }, index * 100);
                 });
                 btnVejaMais.style.display = 'none';
                 btnVejaMenos.style.display = 'inline-flex';
+                showFlutterSnackbar('Mais projetos carregados!');
             });
 
             btnVejaMenos.addEventListener('click', () => {
-                boxesDisplay.forEach(box => {
-                    box.classList.remove('active');
+                boxesDisplay.forEach((box, index) => {
                     setTimeout(() => {
-                        box.style.display = 'none';
-                    }, 300);
+                        box.classList.remove('active');
+                        setTimeout(() => {
+                            box.style.display = 'none';
+                        }, 300);
+                    }, index * 50);
                 });
                 btnVejaMenos.style.display = 'none';
                 btnVejaMais.style.display = 'inline-flex';
+                showFlutterSnackbar('Projetos ocultos');
             });
         }
 
-        // Email sending function (placeholder)
+        // Flutter-enhanced email sending function
         function sendEmail() {
             const nome = document.getElementById('nomeid').value;
             const email = document.getElementById('emailid').value;
             const mensagem = document.getElementById('mensagem').value;
 
             if (!nome || !email || !mensagem) {
-                alert('Por favor, preencha todos os campos!');
+                showFlutterSnackbar('Por favor, preencha todos os campos!');
                 return;
             }
 
-            // Add loading state
             const button = document.querySelector('.button-enviar');
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            const originalHTML = button.innerHTML;
+            
+            // Flutter-style loading state
+            button.innerHTML = '<div class="flutter-loading"></div> <span>Enviando...</span>';
             button.disabled = true;
 
-            // Simulate email sending
+            // Simulate email sending with Flutter-style feedback
             setTimeout(() => {
-                alert('Mensagem enviada com sucesso! Obrigado pelo contato.');
+                showFlutterSnackbar('Mensagem enviada com sucesso! Obrigado pelo contato.', 4000);
+                
+                // Clear form with Flutter animation
                 document.getElementById('nomeid').value = '';
                 document.getElementById('emailid').value = '';
                 document.getElementById('mensagem').value = '';
                 
-                button.innerHTML = originalText;
+                button.innerHTML = originalHTML;
                 button.disabled = false;
             }, 2000);
         }
 
-        // Smooth scrolling for navigation links
-        function setupSmoothScrolling() {
+        // Flutter-style smooth scrolling
+        function setupFlutterSmoothScrolling() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -1400,9 +1975,9 @@
             });
         }
 
-        // Typing effect for name
-        function typeWriterEffect() {
-            const nameElement = document.querySelector('.parte2 h2');
+        // Flutter-inspired typewriter effect for name
+        function flutterTypeWriterEffect() {
+            const nameElement = document.querySelector('#flutter-name');
             const text = nameElement.textContent;
             nameElement.textContent = '';
             nameElement.style.opacity = '1';
@@ -1412,74 +1987,169 @@
                 if (i < text.length) {
                     nameElement.textContent += text.charAt(i);
                     i++;
-                    setTimeout(typeWriter, 100);
+                    setTimeout(typeWriter, 120);
+                } else {
+                    // Add flutter-style glow effect after typing
+                    nameElement.style.textShadow = '0 0 20px rgba(2, 86, 155, 0.5)';
                 }
             }
 
             setTimeout(typeWriter, 1000);
         }
 
-        // Initialize all functionality
-        function init() {
-            createParticles();
-            handleHeaderScroll();
-            revealOnScroll();
-            setupProjectToggle();
-            setupSmoothScrolling();
-            typeWriterEffect();
+        // Flutter Hero Animation for images
+        function setupFlutterHeroAnimations() {
+            document.querySelectorAll('.flutter-hero-animation').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    element.style.transform = 'scale(1.05) rotate(2deg)';
+                    element.style.filter = 'brightness(1.1)';
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = 'scale(1) rotate(0deg)';
+                    element.style.filter = 'brightness(1)';
+                });
+            });
+        }
+
+        // Flutter-style page transitions
+        function setupFlutterPageTransitions() {
+            // Add page load animation
+            document.body.style.opacity = '0';
+            window.addEventListener('load', () => {
+                document.body.style.transition = 'opacity 0.5s cubic-bezier(0.4, 0.0, 0.2, 1)';
+                document.body.style.opacity = '1';
+            });
+        }
+
+        // Flutter Material Theme toggle (bonus feature)
+        function setupFlutterThemeToggle() {
+            let isDark = true;
+            
+            // Add theme toggle to FAB on long press
+            const fab = document.getElementById('flutter-fab');
+            let pressTimer;
+            
+            fab.addEventListener('mousedown', () => {
+                pressTimer = setTimeout(() => {
+                    toggleFlutterTheme();
+                }, 1000);
+            });
+
+            fab.addEventListener('mouseup', () => {
+                clearTimeout(pressTimer);
+            });
+
+            fab.addEventListener('mouseleave', () => {
+                clearTimeout(pressTimer);
+            });
+
+            function toggleFlutterTheme() {
+                const root = document.documentElement;
+                if (isDark) {
+                    // Light theme
+                    root.style.setProperty('--bg-primary', '#f5f5f5');
+                    root.style.setProperty('--bg-secondary', '#ffffff');
+                    root.style.setProperty('--text-primary', '#212121');
+                    root.style.setProperty('--text-secondary', '#757575');
+                    showFlutterSnackbar('Tema claro ativado');
+                } else {
+                    // Dark theme (default)
+                    root.style.setProperty('--bg-primary', '#0f0f23');
+                    root.style.setProperty('--bg-secondary', '#1a1a3e');
+                    root.style.setProperty('--text-primary', '#ffffff');
+                    root.style.setProperty('--text-secondary', '#a1a1aa');
+                    showFlutterSnackbar('Tema escuro ativado');
+                }
+                isDark = !isDark;
+            }
+        }
+
+        // Initialize all Flutter-enhanced functionality
+        function initFlutterEnhancements() {
+            createFlutterParticles();
+            handleFlutterAppBarScroll();
+            flutterRevealOnScroll();
+            setupFlutterFAB();
+            addRippleEffect();
+            setupFlutterProjectToggle();
+            setupFlutterSmoothScrolling();
+            flutterTypeWriterEffect();
+            setupFlutterHeroAnimations();
+            setupFlutterPageTransitions();
+            setupFlutterThemeToggle();
+
+            // Show welcome message
+            setTimeout(() => {
+                showFlutterSnackbar('Bem-vindo ao meu portfólio! 🚀');
+            }, 2000);
+        }
+
+        // Flutter-style cursor effect
+        function setupFlutterCursor() {
+            document.addEventListener('mousemove', (e) => {
+                let cursor = document.querySelector('.flutter-cursor');
+                if (!cursor) {
+                    cursor = document.createElement('div');
+                    cursor.className = 'flutter-cursor';
+                    cursor.style.cssText = `
+                        position: fixed;
+                        width: 20px;
+                        height: 20px;
+                        background: radial-gradient(circle, var(--flutter-blue), transparent);
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 9999;
+                        mix-blend-mode: difference;
+                        transition: transform 0.1s cubic-bezier(0.4, 0.0, 0.2, 1);
+                    `;
+                    document.body.appendChild(cursor);
+                }
+                
+                cursor.style.left = e.clientX - 10 + 'px';
+                cursor.style.top = e.clientY - 10 + 'px';
+            });
+
+            // Enhanced hover effects for Flutter elements
+            document.querySelectorAll('.flutter-card, .flutter-button, .material-ripple-effect').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    const cursor = document.querySelector('.flutter-cursor');
+                    if (cursor) {
+                        cursor.style.transform = 'scale(2)';
+                        cursor.style.background = 'radial-gradient(circle, var(--flutter-sky), transparent)';
+                    }
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    const cursor = document.querySelector('.flutter-cursor');
+                    if (cursor) {
+                        cursor.style.transform = 'scale(1)';
+                        cursor.style.background = 'radial-gradient(circle, var(--flutter-blue), transparent)';
+                    }
+                });
+            });
         }
 
         // Run when DOM is loaded
-        document.addEventListener('DOMContentLoaded', init);
-
-        // Add some interactive cursor effects
-        document.addEventListener('mousemove', (e) => {
-            const cursor = document.querySelector('.cursor');
-            if (!cursor) {
-                const newCursor = document.createElement('div');
-                newCursor.className = 'cursor';
-                newCursor.style.cssText = `
-                    position: fixed;
-                    width: 20px;
-                    height: 20px;
-                    background: radial-gradient(circle, var(--primary), transparent);
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 9999;
-                    mix-blend-mode: difference;
-                    transition: transform 0.1s ease;
-                `;
-                document.body.appendChild(newCursor);
-            }
-            
-            const cursorElement = document.querySelector('.cursor');
-            cursorElement.style.left = e.clientX - 10 + 'px';
-            cursorElement.style.top = e.clientY - 10 + 'px';
+        document.addEventListener('DOMContentLoaded', () => {
+            initFlutterEnhancements();
+            setupFlutterCursor();
         });
 
-        // Add hover effects for interactive elements
-        document.querySelectorAll('a, button, .box-projeto, .skills, .escola-card').forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                const cursor = document.querySelector('.cursor');
-                if (cursor) {
-                    cursor.style.transform = 'scale(2)';
-                }
-            });
-
-            element.addEventListener('mouseleave', () => {
-                const cursor = document.querySelector('.cursor');
-                if (cursor) {
-                    cursor.style.transform = 'scale(1)';
-                }
-            });
+        // Flutter-style performance monitoring
+        window.addEventListener('load', () => {
+            const loadTime = performance.now();
+            console.log(`🚀 Flutter-enhanced portfolio loaded in ${loadTime.toFixed(2)}ms`);
         });
     </script>
 
-    <!-- EmailJS Script -->
+    <!-- EmailJS Script for enhanced functionality -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
+        // Initialize EmailJS for actual email functionality
         (function(){
-            emailjs.init("YOUR_PUBLIC_KEY");
+            // Replace with your actual EmailJS public key
+            // emailjs.init("YOUR_PUBLIC_KEY");
         })();
     </script>
 </body>
