@@ -873,11 +873,23 @@
 
             header nav {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
             }
 
             .cv-download {
                 margin-left: 0;
+            }
+
+            /* Ícones maiores para tablet */
+            nav ul li a {
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+            }
+
+            .cv-btn {
+                padding: 1rem 1.8rem;
+                font-size: 1rem;
             }
         }
 
@@ -891,32 +903,66 @@
                 grid-template-columns: 1fr;
             }
 
+            header {
+                padding: 1.5rem 1rem;
+            }
+
+            header nav {
+                gap: 2rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            /* Ícones ainda maiores para mobile */
+            nav ul li a {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            .cv-btn {
+                padding: 1.2rem 2rem;
+                font-size: 1.1rem;
+                border-radius: 60px;
+            }
+
+            .cv-btn i {
+                font-size: 1.3rem;
+            }
+
+            /* Manter texto do botão em mobile */
+            .cv-btn span {
+                display: inline;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Para telas muito pequenas, ajustar ainda mais */
+            header {
+                padding: 1rem 0.5rem;
+            }
+
             nav ul {
                 gap: 1rem;
             }
 
             nav ul li a {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-
-            nav ul li a img {
-                width: 20px;
-                height: 20px;
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
             }
 
             .cv-btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.85rem;
-            }
-
-            .cv-btn span {
-                display: none;
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
             }
 
             .cv-btn i {
-                font-size: 1rem;
+                font-size: 1.2rem;
             }
         }
 
@@ -1036,7 +1082,7 @@
                 </div>
             </section>
             <div id="texto-home">
-                <p>Muito prazer! Sou Gabriel, graduando em Análise/Desenvolvimento de Sistemas e Design Gráfico. Estou à sua disposição para trabalhar no seu projeto. Sou um profissional assíduo e acessível. Vamos trabalhar juntos?</p>
+                <p>Muito prazer! Sou Gabriel, graduando em análise e desenvolvimento de sistemas e design gráfico. Estou à sua disposição, ficarei feliz e trabalharei no seu projeto. Sou um profissional assíduo, acessível e profissional. Vamos trabalhar juntos?</p>
             </div>
         </div>
         <aside class="navegacao">
@@ -1046,7 +1092,7 @@
             <div class="container-nav">
                 <nav>
                     <ul>
-                        <li><a href="#sobre-mim">Sobre</a></li>
+                        <li><a href="#sobre-mim">Sobre mim</a></li>
                         <li><a href="#projetos">Projetos</a></li>
                         <li><a href="#contato">Contato</a></li>
                     </ul>
