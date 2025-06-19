@@ -1492,8 +1492,34 @@
     <!-- Calendly badge widget begin -->
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
-<script type="text/javascript">window.onload = function() { Calendly.initBadgeWidget({ url: 'https://calendly.com/gabriel-lopos4/30min', text: 'Schedule time with me', color: '#ff8b00', textColor: '#ffffff' }); }</script>
+<script type="text/javascript">
+  window.onload = function () {
+    Calendly.initBadgeWidget({
+      url: 'https://calendly.com/gabriel-lopos4/30min',
+      text: 'Agende comigo',
+      color: '#ff8b00',
+      textColor: '#ffffff',
+      branding: true
+    });
+
+    // Espera o widget carregar e move para a esquerda
+    const observer = new MutationObserver(() => {
+      const badge = document.querySelector('.calendly-badge-widget');
+      if (badge) {
+        badge.style.right = 'auto';
+        badge.style.left = '0';
+        badge.style.borderRadius = '0 6px 6px 0';
+        badge.style.justifyContent = 'flex-start'; // alinha texto à esquerda
+        badge.style.boxShadow = '2px 2px 8px rgba(0,0,0,0.2)';
+        observer.disconnect(); // para de observar
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  };
+</script>
 <!-- Calendly badge widget end -->
+
     
     <!-- Flutter-style Particle system -->
     <div class="flutter-particles" id="flutter-particles"></div>
